@@ -17,7 +17,7 @@
         "*://ufora.ugent.be/*"
     ],
 
-    "browser_action": {
-        "default_tile": "Dark Ufora"
+    "page_action": {
+        "default_popup": "popup.html"
     }
   }
