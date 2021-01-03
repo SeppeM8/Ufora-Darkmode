@@ -1,0 +1,23 @@
+{
+    "name": "Ufora DarkMode",
+    "version": "0.1",
+    "description": "DarkMode for Ufora",
+    "manifest_version": 2,
+
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "storage",
+        "declarativeContent",
+        "*://ufora.ugent.be/*"
+    ],
+
+    "browser_action": {
+        "default_tile": "Dark Ufora"
+    }
+  }
