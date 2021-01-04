@@ -14,10 +14,10 @@
         "tabs",
         "storage",
         "declarativeContent",
-        "*://ufora.ugent.be/*"
+        "https://*/*"
     ],
 
-    "page_action": {
+    "browser_action": {
         "default_popup": "popup.html"
     }
   }

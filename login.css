@@ -1,0 +1,58 @@
+:root {
+    --background: black;
+    --widget-background: #202020;
+    --selected: #353535;
+    --lines: #999999;
+
+    --accent: #0077ff;
+    --accent2: #00ccff;
+    --text-accent: #ffffff;
+
+    --text: #eeeeee;
+    --text-title: #0084ff;
+    --text-link: #ffef0a;
+    --text-link-visited: #77700f;
+}
+
+body {
+    color: var(--text) !important;
+    background-color: var(--background) !important;
+}
+
+/* box achter logo */
+.pageheader .page-logo {
+    background-color: var(--background) !important;
+}
+
+
+.bg-primary {
+    background-color: var(--accent) !important;
+}
+
+.linklist li a {
+    border-bottom: 1px solid transparent !important;
+}
+
+a {
+    color: var(--accent) !important;
+    border-bottom: 1px solid var(--accent) !important;
+}
+
+/* FAQ */
+h2 {
+    color: var(--accent) !important;
+}
+
+
+/* Textbox rechts */
+#display {
+    background-color: var(--accent) !important;
+}
+
+/* error login */
+.alert-warning {
+    background-color: var(--widget-background) !important;
+}
+.alert {
+    color: var(--text) !important;
+}

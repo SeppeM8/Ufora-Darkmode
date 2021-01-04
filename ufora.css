@@ -7,6 +7,7 @@
 
     --accent: #0077ff;
     --accent2: #00ccff;
+    --text-accent: #ffffff;
 
     --text: #eeeeee;
     --text-title: #0084ff;
@@ -25,9 +26,8 @@
     --d2l-branding-primary-color: var(--accent); /* Balk top */
 }
 
-:host(d2l-navigation-link-image) {
-    -webkit-filter: brightness(0) !important;
-    filter: brightness(0) invert(1) !important;
+.d2l-dropdown-content-width {
+    background-color: var(--widget-background) !important;
 }
 
 /* Hover Icons */
@@ -64,6 +64,16 @@ d2l-navigation-main-header {
 .d2l-branding-navigation-background-color {
     background-color: var(--accent) !important;
 }
+/* text */
+.d2l-branding-navigation-light-foreground-color a.d2l-navigation-s-link, .d2l-branding-navigation-light-foreground-color div.d2l-navigation-s-item>span, .d2l-branding-navigation-light-foreground-color .d2l-navigation-s-group .d2l-navigation-s-group-text, .d2l-branding-navigation-light-foreground-color .d2l-navigation-s-group .d2l-navigation-s-group-wrapper d2l-icon {
+    color: var(--text-accent) !important;
+}
+
+/* header vak */
+.d2l-navigation-s-header-logo-area a.d2l-navigation-s-link, .d2l-navigation-s-header-logo-area a.d2l-navigation-s-link:link, .d2l-navigation-s-header-logo-area a.d2l-navigation-s-link:visited {
+    color: var(--text) !important;
+}
+
 
 /* Icons Top */
 d2l-navigation-buttton-icon {
@@ -92,7 +102,7 @@ d2l-menu-item { /* UGent */
 
 /* Courses */
 .vui-list>.vui-selected {
-    background-color: var(--selected) !important;
+    background-color: var(--background) !important;
 }
 .vui-list>.vui-active {
     background-color: var(--selected) !important;
@@ -151,6 +161,14 @@ d2l-dropdown-content {
     color: var(--text) !important;
 }
 
+/* Opdrachten file link */
+.daylight span.dfl a {
+    color: var(--accent) !important;
+}
+.daylight span.dfl a:hover{
+    color: var(--accent2) !important;
+}
+
 /* Discussies */
 /* hidable menu (discussies) */
 .d2l-accordion-content, .daylight .d2l-page-collapsepane-content, .daylight .d2l-page-collapsepane-content-inner {
@@ -171,7 +189,6 @@ d2l-dropdown-content {
 .daylight .d2l-page-collapsepane-handle-link {
     border-left: 5px solid var(--accent2) !important;
 }
-
 /* Lijst met discussies / Aanmeldingen */
 .daylight .d2l-tool-areas-item-selected > .d2l-tool-areas-link, .daylight .d2l-tool-areas-item-selected > .d2l-tool-areas-link:visited, .daylight .d2l-tool-areas-item-selected > .d2l-tool-areas-link:link, .daylight .d2l-tool-areas-item-selected > .d2l-tool-areas-link:hover, .daylight .d2l-tool-areas-item-selected > .d2l-tool-areas-link:focus {
     color: #3388ff !important;
@@ -180,10 +197,45 @@ d2l-dropdown-content {
     color: var(--text) !important;
 }
 
+/* groepen - popup */
+.ddial_o2 {
+    background-color: var(--widget-background) !important;
+}
+
+/* test pogingen bezig */
+.daylight .ds_c {
+    color: var(--accent) !important;
+}
+
+/* scores subheader */
+.daylight .d_ggl1 {
+    background-color: var(--widget-background) !important;
+}
+
+/* voortgang tabel links balkje onderaan */
+.d2l-datalist-style1 > .d2l-datalist {
+    padding-bottom: 0px !important;
+}
+
+/* bijeenkomsten */
+.d2l-grid-empty {
+    background-color: var(--widget-background) !important;
+    color: var(--text) !important;
+}
 
 /* Popup */
 .d2l-dialog-mvc .d2l-dialog-inner{
     background-color: var(--background) !important;
+}
+
+/* koppelingen linkse kolom */
+.d_ua > .d_ua_h {
+    background-color: var(--widget-background) !important;
+}
+
+/* chatinstellingen - changed */
+.vui-changed {
+    background-color: var(--widget-background) !important;
 }
 
 /* Agenda */
@@ -206,8 +258,22 @@ d2l-dropdown-content {
 td.d2l-le-calendar-weekend, th.d2l-le-calendar-weekend, .d2l-le-calendar-week-header.d2l-le-calendar-weekend, .d2l-le-calendar-week-all td.d2l-le-calendar-weekend, .d2l-le-calendar-week-events td.d2l-le-calendar-weekend{
     background-color: var(--widget-background) !important;
 }
-.d2l-le-calendar-week-events td, .d2l-le-calendar-week-days .d2l-le-calendar-week-header, .d2l-le-calendar-week-all td {
+.d2l-le-calendar-week-events td, .d2l-le-calendar-week-days .d2l-le-calendar-week-header, .d2l-le-calendar-week-all td, .d2l-le-calendar-out th, .d2l-le-calendar-out td {
     background-color: var(--widget-background) !important;
+}
+/* dagnummer */
+.d2l-le-calendar-month td {
+    color: var(--text) !important;
+}
+.d2l-le-calendar-month td:hover {
+    color: var(--accent) !important;
+}
+/* Maandview vandaag background */ 
+d2l-le-calendar-today d2l-le-calendar-month-selected {
+    color: red !important;
+}
+.d2l-le-calendar-today {
+    background-color: var(--selected) !important;
 }
 /* bolletje kalender */
 .daylight .d2l-calendar-mini-event::after {
@@ -216,6 +282,10 @@ td.d2l-le-calendar-weekend, th.d2l-le-calendar-weekend, .d2l-le-calendar-week-he
 /* vandaag kalender */
 .daylight .d2l-calendar-mini-today {
     color: var(--accent) !important;
+}
+/* hover */
+.daylight .d2l-calendar-mini-day:hover {
+    color: var(--accent2) !important;
 }
 /* selected kalender */
 .daylight .d2l-calendar-mini-selected {
@@ -313,3 +383,16 @@ div.d2l-filterinline-group-viewswitcher > div > a.d2l-filterinline-item-selected
     background-color: var(--widget-background) !important;
     border: 1px solid #333333 !important;
 }
+
+/* ePortfolio */
+/* Mijn items filteren */
+div.d2l-filterinline-group-filter > div > a {
+    color: var(--text) !important;
+}
+.daylight div.d2l-filterinline-group-filter > div > a.d2l-filterinline-item-selected {
+    color: var(--accent) !important;
+}
+div.d2l-filterinline-group-filter > div > a:hover {
+    color: var(--accent2) !important;
+}
+
