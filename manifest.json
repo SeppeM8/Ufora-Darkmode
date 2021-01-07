@@ -10,11 +10,9 @@
     },
 
     "permissions": [
-        "activeTab",
         "tabs",
         "storage",
-        "declarativeContent",
-        "https://*/*"
+        "https://*.ugent.be/*"
     ],
 
     "browser_action": {

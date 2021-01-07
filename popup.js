@@ -6,6 +6,8 @@ if (enable) {
             enable.textContent = "Disable";
         } else {
             enable.textContent = "Enable";
+            document.body.style.backgroundColor = "white";
+            document.body.style.color = "black";
         }
     });
 
@@ -27,7 +29,6 @@ if (reset) {
         chrome.storage.sync.set({"colors": {"background": "#000000",
                                             "widgetbackground": "#202020",
                                             "selected": "#353535",
-                                            "lines": "#999999",
                                             "accent": "#0077ff",
                                             "accent2": "#00ccff",
                                             "textaccent": "#ffffff",
@@ -73,7 +74,6 @@ function initColors() {
         cbackground.value = result.colors.background;
         cwidgetbackground.value = result.colors.widgetbackground;
         cselected.value = result.colors.selected;
-        clines.value = result.colors.lines;
         caccent.value = result.colors.accent;
         caccent2.value = result.colors.accent2;
         ctextaccent.value = result.colors.textaccent;
@@ -102,12 +102,6 @@ cwidgetbackground.addEventListener("change", function() {
 cselected.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.selected = cselected.value;
-        chrome.storage.sync.set({"colors": result.colors});
-    });
-});
-clines.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.lines = clines.value;
         chrome.storage.sync.set({"colors": result.colors});
     });
 });

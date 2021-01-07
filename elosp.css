@@ -4,7 +4,6 @@
     --background: black;
     --widget-background: #202020;
     --selected: #353535;
-    --lines: #999999;
 
     --accent: #0077ff;
     --accent2: #00ccff;
@@ -64,4 +63,9 @@ h2 {
 
 .btn-secondary:hover {
     background-color: var(--accent2) !important;;
+}
+
+/* C 2021 Univeriteit Gent */
+.page-footer .list-inline li {
+    color: var(--text-accent) !important;
 }
