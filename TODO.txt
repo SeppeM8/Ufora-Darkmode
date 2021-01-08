@@ -1,8 +1,10 @@
 BUGS
 - Login dark = off. Na logout is pagina dark.
 
+FEATURES
+- Login/elosp via optional permission
 
-TODO
+Witte dingen
 - iframes
 - Tests (iframe)
 - Enquête (iframe)

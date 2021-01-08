@@ -4,6 +4,10 @@
     "description": "DarkMode for Ufora",
     "manifest_version": 2,
 
+    "icons": {  "16": "Icons/icon16.png",
+                "48": "Icons/icon48.png",
+                "128": "Icons/icon128.png" },
+
     "background": {
         "scripts": ["background.js"],
         "persistent": false
@@ -12,7 +16,12 @@
     "permissions": [
         "tabs",
         "storage",
-        "https://*.ugent.be/*"
+        "https://ufora.ugent.be/*"
+    ],
+
+    "optional_permissions": [
+        "https://login.ugent.be/*",
+        "https://elosp.ugent.be/*"
     ],
 
     "browser_action": {

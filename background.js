@@ -12,7 +12,7 @@ function siteToCSS (site) {
 
 chrome.runtime.onInstalled.addListener(function() {
     chrome.storage.sync.set({"state": true});
-    chrome.storage.sync.set({"sites": {"login": true}});
+    chrome.storage.sync.set({"sites": {"login": false}});
     chrome.storage.sync.set({"colors": {"background": "#000000",
                                         "widgetbackground": "#202020",
                                         "selected": "#353535",
