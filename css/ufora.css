@@ -158,6 +158,9 @@ d2l-dropdown-content {
 .daylight .d2l-repsonsive-collapse-layout #ContentModuleTree .d2l-le-TreeAccordionItem.d2l-le-TreeAccordionItem-Selected > a.d2l-le-TreeAccordionItem-anchor::before, .daylight .d2l-repsonsive-collapse-layout #ContentModuleTree .d2l-le-TreeAccordionItem.d2l-le-TreeAccordionItem-Selected > a.d2l-le-TreeAccordionItem-anchor:link::before, .daylight .d2l-repsonsive-collapse-layout #ContentModuleTree .d2l-le-TreeAccordionItem.d2l-le-TreeAccordionItem-Selected > a.d2l-le-TreeAccordionItem-anchor:visited::before, .daylight .d2l-repsonsive-collapse-layout #ContentModuleTree .d2l-le-TreeAccordionItem.d2l-le-TreeAccordionItem-Selected > a.d2l-le-TreeAccordionItem-anchor:hover::before, .daylight .d2l-repsonsive-collapse-layout #ContentModuleTree .d2l-le-TreeAccordionItem.d2l-le-TreeAccordionItem-Selected > a.d2l-le-TreeAccordionItem-anchor:focus::before {
     background: var(--selected) !important;
 }
+.daylight #ContentNavigator .vui-list > .vui-selected {
+    background-color: var(--selected) !important;
+}
 
 /* Text */
 .d2l-typography, .d2l-typography .d2l-body-small {
