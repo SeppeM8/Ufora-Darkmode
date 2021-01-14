@@ -1,5 +1,3 @@
-
-
 chrome.storage.sync.get(["colors", "settings"], function(result) {
 
     // Pagina mag veranderd worden

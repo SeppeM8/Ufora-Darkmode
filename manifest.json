@@ -1,7 +1,8 @@
 {
-    "name": "Ufora DarkMode",
+    "name": "Ufora Dark Mode",
     "version": "0.1",
-    "description": "DarkMode for Ufora",
+    "description": "__MSG_appDesc__",
+    "default_locale": "en",
     "manifest_version": 2,
 
     "icons": {  "16": "Icons/icon16.png",

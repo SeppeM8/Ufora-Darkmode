@@ -1,27 +1,54 @@
+function localizeHtmlPage()
+{
+    //Localize by replacing __MSG_***__ meta tags
+    var objects = document.getElementsByTagName('html');
+    for (var j = 0; j < objects.length; j++)
+    {
+        var obj = objects[j];
+
+        var valStrH = obj.innerHTML.toString();
+        var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1)
+        {
+            return v1 ? chrome.i18n.getMessage(v1) : "";
+        });
+
+        if(valNewH != valStrH)
+        {
+            obj.innerHTML = valNewH;
+        }
+    }
+}
+
+localizeHtmlPage();
+
 var enable = document.getElementById("enable");
+var enabled;
 
 if (enable) {
     chrome.storage.sync.get("settings", function(result){
         if (result.settings.state) {
-            enable.textContent = "Disable";
+            enable.textContent = chrome.i18n.getMessage("popup_disable");
+            enabled = true;
         } else {
-            enable.textContent = "Enable";
+            enable.textContent = chrome.i18n.getMessage("popup_enable");
             document.body.style.backgroundColor = "white";
             document.body.style.color = "black";
+            enabled = false;
         }
     });
 
     enable.addEventListener("click", function() {
         chrome.storage.sync.get("settings", function(result) {
-            if (enable.textContent === "Enable") {
+            if (enabled) {
                 result.settings.state = true;
-                enable.textContent = "Disable";
+                enable.textContent = chrome.i18n.getMessage("popup_disable");
             } else {
                 result.settings.state = false;
-                enable.textContent = "Enable";
+                enable.textContent = chrome.i18n.getMessage("popup_enable");
             }
             chrome.storage.sync.set({"settings": result.settings});
-        });        
+        });  
+        enabled = !enabled;      
     });
 }
 
