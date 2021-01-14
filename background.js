@@ -11,8 +11,8 @@ function siteToCSS (site) {
 }
 
 chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({"state": true});
     chrome.storage.sync.set({"sites": {"login": false}});
+    chrome.storage.sync.set({"settings": {"state": true, "removeWhite": false}});
     chrome.storage.sync.set({"colors": {"background": "#000000",
                                         "widgetbackground": "#202020",
                                         "selected": "#353535",
@@ -68,8 +68,8 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 function changecss() {    
-    chrome.storage.sync.get(["state", "sites"], function(result){
-        if (! result.state) {
+    chrome.storage.sync.get(["settings", "sites"], function(result){
+        if (! result.settings.state) {
             removeAllCSS();
         } else {
             chrome.windows.getAll({populate:true},function(windows){
@@ -117,25 +117,14 @@ function removeCSS(tab, cssFile) {
 }
 
 function cssScript(tab) {
-    // Accountinstellingen - background    
     chrome.storage.sync.get("colors", function(result) {
-        if (tab.url.includes("://ufora.ugent.be/d2l/lp/preferences")){
+
+        if (tab.url.includes("ufora.ugent.be")) {
             chrome.tabs.executeScript(tab.id, {
-                code: 'var all = document.getElementsByClassName("dco_c"); for (var i = 0; i < all.length; i++) { all[i].style.backgroundColor = "#202020"; }'
+                file : "ufora.js"
             });
-        } 
+        }
 
-        // Werkt niet hoe het moet
-        // if (tab.url.includes("://ufora.ugent.be/d2l/le/calendar")){
-        //     chrome.tabs.executeScript({
-        //         code: 'var all = document.getElementsByClassName("d2l-le-calendar-today"); for (var i = 0; i < all.length; i++) { all[i] = document.createElement("style"); all[i].type = "text/css"; all[i].id = "styles_js"; document.getElementsByTagName("head")[0].appendChild(all[i]); all[i].appendChild(document.createTextNode(".d2l-le-calendar-today {background-color: red !important;}")); }'
-        //     });
-        // } 
-
-        // witte vakken bij vakken verwijderen
-        chrome.tabs.executeScript(tab.id, {
-            code: "var elements = document.getElementsByClassName('d2l-widget d2l-tile d2l-widget-padding-full'); while(elements.length > 0){ elements[0].parentNode.removeChild(elements[0]);}"
-        });
         var command = "var r = document.querySelector(':root'); "; 
         command += "r.style.setProperty('--background','" + result.colors.background + "');";
         command += "r.style.setProperty('--widget-background','" + result.colors.widgetbackground + "');";

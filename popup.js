@@ -1,8 +1,8 @@
 var enable = document.getElementById("enable");
 
 if (enable) {
-    chrome.storage.sync.get("state", function(result){
-        if (result.state) {
+    chrome.storage.sync.get("settings", function(result){
+        if (result.settings.state) {
             enable.textContent = "Disable";
         } else {
             enable.textContent = "Enable";
@@ -12,13 +12,16 @@ if (enable) {
     });
 
     enable.addEventListener("click", function() {
-        if (enable.textContent === "Enable") {
-            chrome.storage.sync.set({"state": true});
-            enable.textContent = "Disable";
-        } else {
-            chrome.storage.sync.set({"state": false});
-            enable.textContent = "Enable";
-        }
+        chrome.storage.sync.get("settings", function(result) {
+            if (enable.textContent === "Enable") {
+                result.settings.state = true;
+                enable.textContent = "Disable";
+            } else {
+                result.settings.state = false;
+                enable.textContent = "Enable";
+            }
+            chrome.storage.sync.set({"settings": result.settings});
+        });        
     });
 }
 
@@ -70,10 +73,29 @@ if (login) {
     })
 }
 
+var removeWhite = document.getElementById("removeWhite");
+
+if (removeWhite) {
+    chrome.storage.sync.get("settings", function(result){
+        removeWhite.checked = result.settings.removeWhite;
+    });
+
+    removeWhite.addEventListener("change", function() {
+        chrome.storage.sync.get("settings", function(result) {
+            if (removeWhite.checked) {
+                result.settings.removeWhite = true;
+            } else {
+                result.settings.removeWhite = false;
+            }
+            chrome.storage.sync.set({"settings": result.settings});
+        });        
+    });
+}
+
 // Storage listener
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-    chrome.storage.sync.get("state", function(result){
-        if (result.state) {
+    chrome.storage.sync.get("settings", function(result){
+        if (result.settings.state) {
             document.body.style.backgroundColor = "black";
             document.body.style.color = "white";
         } else {
