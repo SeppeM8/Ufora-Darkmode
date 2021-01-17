@@ -69,3 +69,12 @@ h2 {
 .page-footer .list-inline li {
     color: var(--text-accent) !important;
 }
+
+/* Samenwerkingsruimte (vanuit ufora) */
+d2l-alert {
+    background: var(--widget-background);
+}
+
+d2l-focusable {
+    color: var(--text);
+}

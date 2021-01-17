@@ -10,20 +10,32 @@ function siteToCSS (site) {
     return siteCSS[subSite];
 }
 
-chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({"sites": {"login": false}});
-    chrome.storage.sync.set({"settings": {"state": true, "removeWhite": false}});
-    chrome.storage.sync.set({"colors": {"background": "#000000",
-                                        "widgetbackground": "#202020",
-                                        "selected": "#353535",
-                                        "accent": "#0077ff",
-                                        "accent2": "#00ccff",
-                                        "textaccent": "#ffffff",
-                                        "text": "#eeeeee",
-                                        "title": "#0084ff",
-                                        "link": "#00bbff",
-                                        "linkvisited": "#0095ff"}});
-    
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "update") {
+        if (details.previousVersion === "0.1") {
+            chrome.storage.sync.remove("state");
+        }
+        chrome.storage.sync.remove("sites");
+    }
+
+    // Als waardes niet bestaan: aanmaken
+    chrome.storage.sync.get({   "colors":{  "accent":"#0077ff",
+                                            "accent2":"#00ccff",
+                                            "background":"#000000",
+                                            "link":"#00bbff",
+                                            "linkvisited":"#0095ff",
+                                            "selected":"#353535",
+                                            "text":"#eeeeee",
+                                            "textaccent":"#ffffff",
+                                            "title":"#0084ff",
+                                            "widgetbackground":"#202020"},
+                                "settings":{"removeWhite":true,
+                                            "state":true},
+                                "sites":   {"login":true}
+                            }, function(data) {
+        chrome.storage.sync.set(data, function() {
+        });
+    });
 });
 
 var loadingTabs = {};
@@ -36,7 +48,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
     }
     else if (info.status === "complete") {
         if (loadingTabs[tabId] !== siteToCSS(tab.url)) { // ufora kan doorsturen naar login -> .css moet verandert worden
-            removeCSS(tab, loadingTabs[tabId]);
+            deleteCSS(tab, loadingTabs[tabId]);
             changecss();
         }
         delete loadingTabs[tabId];
@@ -54,7 +66,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
                         if (changes.sites.newValue.login) {
                             changecss();
                         } else {
-                            removeCSS(tab, css);
+                            deleteCSS(tab, css);
                             delete dark[tab.id];
                         }
                     }
@@ -67,7 +79,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     }
 });
 
-function changecss() {    
+function changecss() {
     chrome.storage.sync.get(["settings", "sites"], function(result){
         if (! result.settings.state) {
             removeAllCSS();
@@ -78,7 +90,7 @@ function changecss() {
                         if (! (tab.id in dark)) {
                             var css = siteToCSS(tab.url);
                             if (css && (result.sites.login || css === "ufora.css")) {
-                                removeCSS(tab, css);
+                                deleteCSS(tab, css);
                                 addCSS(tab, css);
                             }
                         }
@@ -96,7 +108,7 @@ function removeAllCSS() {
             window.tabs.forEach(function(tab){
                 var css = siteToCSS(tab.url);
                 if (css) {
-                    removeCSS(tab, css);
+                    deleteCSS(tab, css);
                 }
             });
         });
@@ -105,24 +117,23 @@ function removeAllCSS() {
 
 // Voeg gegeven css file toe aan de gegeven tab
 function addCSS(tab, cssFile) {
-    chrome.tabs.insertCSS(tab.id, { file: "css/" + cssFile});
+    chrome.tabs.insertCSS(tab.id, { file: "css/" + cssFile}, function(){chrome.runtime.lastError;});
     cssScript(tab);
     dark[tab.id] = cssFile;
 }
 
 // Verwijder gegeven css file van gegeven tab
-function removeCSS(tab, cssFile) {
-    chrome.tabs.removeCSS(tab.id, { file: "css/" + cssFile});
+function deleteCSS(tab, cssFile) {
+    chrome.tabs.removeCSS(tab.id, { file: "css/" + cssFile},  function(){chrome.runtime.lastError;});
     delete dark[tab.id];
 }
 
 function cssScript(tab) {
     chrome.storage.sync.get("colors", function(result) {
-
         if (tab.url.includes("ufora.ugent.be")) {
             chrome.tabs.executeScript(tab.id, {
                 file : "ufora.js"
-            });
+            }, function(){chrome.runtime.lastError;});
         }
 
         var command = "var r = document.querySelector(':root'); "; 
@@ -138,6 +149,6 @@ function cssScript(tab) {
         command += "r.style.setProperty('--text-link-visited','" + result.colors.linkvisited + "');";
         chrome.tabs.executeScript(tab.id, {
             code: command
-        });
+        }, function(){chrome.runtime.lastError;});
     }); 
 }

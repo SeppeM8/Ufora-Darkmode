@@ -23,6 +23,7 @@
     --d2l-color-celestine-minus-1: var(--accent); /* Kalender buttons hover */
     --d2l-color-mica: var(--selected); /*  knop hover */
     --d2l-branding-primary-color: var(--accent); /* Balk top */
+    --d2l-color-primary-accent-indicator: var(--accent2);
 }
 
 .d2l-dropdown-content-width {
@@ -35,12 +36,12 @@
     color: var(--accent) !important;
 }
 .d2l-imagelink d2l-icon:hover {
-    color:var(--accent2) !important;
-} 
-
+    color: var(--accent2) !important;
+}
 
 body {
     background-color: var(--background) !important;
+    color: var(--text) !important; /* Aankondigingen - RSS */
 }
 
 .d2l-body {
@@ -78,10 +79,10 @@ d2l-navigation-main-header {
 d2l-navigation-buttton-icon {
     color: var(--accent);
 }
-/* Bolletje melding */ 
-.d2l-navigation-notification-icon-indicator {
-    background: var(--accent2) !important;
-    border: 2px solid var(--widget-background) !important;
+
+/* Lijnen tussen Accountinstellingen voorgang afmelden */
+.d2l-minibar-menu-separator {
+    border-bottom: 1px dotted var(--selected) !important;
 }
 
 /* Meldingen Text */
@@ -111,6 +112,9 @@ d2l-menu-item-link:hover { /* Ufora */
 d2l-menu-item { /* UGent */
     background-color: var(--widget-background);
     color: var(--text);
+}
+d2l-menu-item:hover {
+    background-color: var(--selected);
 }
 
 /* Courses */
@@ -236,6 +240,9 @@ d2l-dropdown-content {
 .ddial_o2 {
     background-color: var(--widget-background) !important;
 }
+.d2l-shim {
+    background-color: var(--background) !important;
+}
 
 /* test pogingen bezig */
 .daylight .ds_c {
@@ -296,6 +303,9 @@ td.d2l-le-calendar-weekend, th.d2l-le-calendar-weekend, .d2l-le-calendar-week-he
 .d2l-le-calendar-week-events td, .d2l-le-calendar-week-days .d2l-le-calendar-week-header, .d2l-le-calendar-week-all td, .d2l-le-calendar-out th, .d2l-le-calendar-out td {
     background-color: var(--widget-background) !important;
 }
+.d2l-le-calendar-month th {
+    color: var(--text) !important;
+}
 /* dagnummer */
 .d2l-le-calendar-month td {
     color: var(--text) !important;
@@ -322,10 +332,14 @@ td.d2l-le-calendar-weekend, th.d2l-le-calendar-weekend, .d2l-le-calendar-week-he
 .daylight .d2l-calendar-mini-selected {
     background-color: var(--selected) !important;
 }
-/* TODO selected dag in minicaleneder */
-/* .daylight .d2l-calendar-mini-selected:focus {
-    border-color: red !important;
-} */
+/* ma di ...*/
+.daylight .d2l-calendar-mini th > abbr {
+    color: var(--text) !important;
+}
+/* dagen van vorige/volgende maand */
+.daylight .d2l-calendar-mini-other {
+    color: var(--selected) !important;
+}
 
 /* Meldingen */
 /* Pulse */
@@ -401,6 +415,14 @@ d2l-datalist vui-list {
 div.d2l-filterinline-group-viewswitcher > div > a.d2l-filterinline-item-selected {
     background-color: var(--selected) !important;
 }
+/* progressBark */
+rect {
+    fill: var(--accent);
+    stroke: var(--accent);
+}
+path {
+    fill: var(--selected);
+}
 
 /* scores evolutie */
 .d2l-charttooltip {
@@ -438,8 +460,7 @@ div.d2l-filterinline-group-filter > div > a:hover {
 
 }
 
-
-/* SCrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 7px;
     height: 7px;

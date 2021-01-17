@@ -79,23 +79,8 @@ if (login) {
 
     login.addEventListener("change", function(e) {
         chrome.storage.sync.get("sites", function(result){
-            chrome.permissions.contains({
-                origins: ["https://login.ugent.be/*", "https://elosp.ugent.be/*"]
-            }, function(granted) {
-                if (granted) {
-                    result.sites.login = login.checked;
-                    chrome.storage.sync.set({"sites": result.sites});                
-                } else {
-                    chrome.permissions.request({
-                        origins: ["https://login.ugent.be/*", "https://elosp.ugent.be/*"]
-                    }, function(granted) {
-                        if (granted) {
-                            result.sites.login = login.checked;
-                            chrome.storage.sync.set({"sites": result.sites});
-                        }
-                    });
-                }
-            })
+            result.sites.login = login.checked;
+            chrome.storage.sync.set({"sites": result.sites});
         });
     })
 }
