@@ -22,7 +22,13 @@ chrome.storage.sync.get(["colors", "settings"], function(result) {
         addNewStyle('td.d2l-le-calendar-today {background-color: ' + result.colors.selected + ' !important;}');
     }
 
-    
+    /* Bestanden zonder voorbeeld */
+    var boxes = document.getElementsByClassName('d2l-fileviewer');
+    for (var i = 0; i < boxes.length; i++) {
+        boxes[i].children[0].style.backgroundColor = result.colors.widgetbackground;
+    }
+
+
     let observer = new MutationObserver(() => {
         setTimeout(onReady, 0);
     });
@@ -50,7 +56,7 @@ chrome.storage.sync.get(["colors", "settings"], function(result) {
                 childList: true, // observe direct children
                 subtree: true, // and lower descendants too
             });
-        }
+        }        
     }
 
     document.onreadystatechange = () => {

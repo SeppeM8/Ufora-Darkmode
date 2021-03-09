@@ -30,7 +30,8 @@ chrome.runtime.onInstalled.addListener(function(details) {
                                             "title":"#0084ff",
                                             "widgetbackground":"#202020"},
                                 "settings":{"removeWhite":true,
-                                            "state":true},
+                                            "state":true,
+                                            "darkTest":false},
                                 "sites":   {"login":true}
                             }, function(data) {
         chrome.storage.sync.set(data, function() {
@@ -117,9 +118,15 @@ function removeAllCSS() {
 
 // Voeg gegeven css file toe aan de gegeven tab
 function addCSS(tab, cssFile) {
-    chrome.tabs.insertCSS(tab.id, { file: "css/" + cssFile}, function(){chrome.runtime.lastError;});
-    cssScript(tab);
-    dark[tab.id] = cssFile;
+    chrome.storage.sync.get("settings", function(result) {
+        if ((! result.settings.darkTest) &&  tab.url.includes("ufora.ugent.be/d2l/lms/quizzing/user/attempt")) {
+            return;
+        } else {
+            chrome.tabs.insertCSS(tab.id, { file: "css/" + cssFile}, function(){chrome.runtime.lastError;});
+            cssScript(tab);
+            dark[tab.id] = cssFile;
+        }
+    });
 }
 
 // Verwijder gegeven css file van gegeven tab

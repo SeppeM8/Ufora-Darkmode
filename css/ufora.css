@@ -41,7 +41,7 @@
 
 body {
     background-color: var(--background) !important;
-    color: var(--text) !important; /* Aankondigingen - RSS */
+    color: var(--text) !important;
 }
 
 .d2l-body {

@@ -52,6 +52,12 @@
     },
     "popup_remWhite": {
         "message": "Remove white"
+    },
+    "popup_darkTest": {
+        "message": "Dark tests"
+    },
+    "popup_darkTestTip": {
+        "message": "Make Tests dark (Experimental)"
     }
 }
     

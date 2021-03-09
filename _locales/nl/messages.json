@@ -52,6 +52,12 @@
     },
     "popup_remWhite": {
         "message": "Verwijder wit"
+    },
+    "popup_darkTest": {
+        "message": "Dark tests"
+    },
+    "popup_darkTestTip": {
+        "message": "Maak Tests dark (Experimental)"
     }
 }
     

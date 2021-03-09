@@ -104,6 +104,25 @@ if (removeWhite) {
     });
 }
 
+var darkTest = document.getElementById("darkTest");
+
+if (darkTest) {
+    chrome.storage.sync.get("settings", function(result){
+        darkTest.checked = result.settings.darkTest;
+    });
+
+    darkTest.addEventListener("change", function() {
+        chrome.storage.sync.get("settings", function(result) {
+            if (darkTest.checked) {
+                result.settings.darkTest = true;
+            } else {
+                result.settings.darkTest = false;
+            }
+            chrome.storage.sync.set({"settings": result.settings});
+        });        
+    });
+}
+
 // Storage listener
 chrome.storage.onChanged.addListener(function(changes, namespace) {
     chrome.storage.sync.get("settings", function(result){
