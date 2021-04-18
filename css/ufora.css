@@ -44,6 +44,11 @@ body {
     color: var(--text) !important;
 }
 
+span, p {
+    color: var(--text) !important;
+    background-color: var(--widget-background) i !important;
+}
+
 .d2l-body {
     background-color: var(--background) !important;
 }

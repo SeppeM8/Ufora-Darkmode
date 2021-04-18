@@ -22,6 +22,12 @@ chrome.storage.sync.get(["colors", "settings"], function(result) {
         addNewStyle('td.d2l-le-calendar-today {background-color: ' + result.colors.selected + ' !important;}');
     }
 
+    /* Bestanden extenre bron */
+    var boxHolder = document.getElementById("ContentView");
+    if (boxHolder !== null && boxHolder.childNodes.length > 1) {
+        boxHolder.childNodes[1].style.backgroundColor = result.colors.widgetbackground;
+    }
+
     /* Bestanden zonder voorbeeld */
     var boxes = document.getElementsByClassName('d2l-fileviewer');
     for (var i = 0; i < boxes.length; i++) {
