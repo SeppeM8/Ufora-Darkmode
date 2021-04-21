@@ -9,6 +9,13 @@ chrome.storage.sync.get(["colors", "settings"], function(result) {
         }
     }
 
+    /* aankondigingen html block */
+    const blocks = document.getElementsByClassName("d2l-htmlblock");
+    for (block of blocks) {
+        block.innerHTML = block.innerHTML.replace(/color:[^;]*;/g, "color: " + result.colors.text + ";");
+        block.innerHTML = block.innerHTML.replace(/background-color:[^;]*;/g, "background-color: transparent;");
+    }
+
     // Accountinstellingen - background
     if (window.location.href.includes("https://ufora.ugent.be/d2l/lp/preferences")) {
         var all = document.getElementsByClassName("dco_c"); 

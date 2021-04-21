@@ -18,6 +18,7 @@
     --d2l-color-celestine:var(--accent2); /* Icons enzo hover */
     --d2l-dropdown-background-color: var(--widget-background); /* Dropdown */
     --d2l-table-body-background-color: var(--widget-background); /* Tables */
+    --d2l-table-row-background-color-selected: var(--selected) ;/* Tables - Selected */
     --d2l-color-regolith: var(--widget-background); /* Headers */
     --d2l-color-gypsum: var(--widget-background); /* knop standaard */
     --d2l-color-celestine-minus-1: var(--accent); /* Kalender buttons hover */
@@ -42,11 +43,6 @@
 body {
     background-color: var(--background) !important;
     color: var(--text) !important;
-}
-
-span, p {
-    color: var(--text) !important;
-    background-color: var(--widget-background) i !important;
 }
 
 .d2l-body {
