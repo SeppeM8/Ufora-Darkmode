@@ -65,7 +65,7 @@ if (reset) {
                                             "text": "#eeeeee",
                                             "title": "#0084ff",
                                             "link": "#00bbff",
-                                            "linkvisited": "#0095ff"}});
+                                            "linkvisited": "#1279d3"}});
         initColors();
     });
 }

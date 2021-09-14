@@ -25,6 +25,7 @@
     --d2l-color-mica: var(--selected); /*  knop hover */
     --d2l-branding-primary-color: var(--accent); /* Balk top */
     --d2l-color-primary-accent-indicator: var(--accent2);
+    --d2l-input-background-color: var(--selected); /* Input field */
 }
 
 .d2l-dropdown-content-width {
@@ -49,6 +50,9 @@ body {
     background-color: var(--background) !important;
 }
 
+.d2l-navigation-s-mobile-menu-content {
+    background-color: var(--background) !important;
+}
 
 /* Tiles */
 .d2l-tile {
@@ -186,6 +190,17 @@ d2l-dropdown-content {
 }
 .daylight label .ds_i, .daylight .ds_b {
     color: var(--text) !important;
+}
+.d2l-grid-cell {
+    background-color: var(--selected) !important;
+}
+
+.d2l-editable:hover {
+    background-color: var(--accent) !important;
+}
+
+.d2l-table>tbody, .d2l-table>tfoot {
+    background-color: var(--widget-background) !important;
 }
 
 /* Opdrachten file link */

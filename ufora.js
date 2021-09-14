@@ -9,11 +9,12 @@ chrome.storage.sync.get(["colors", "settings"], function(result) {
         }
     }
 
-    /* aankondigingen html block */
+    // aankondigingen html block 
     const blocks = document.getElementsByClassName("d2l-htmlblock");
-    for (block of blocks) {
+    for (var block of blocks) {
         block.innerHTML = block.innerHTML.replace(/color:[^;]*;/g, "color: " + result.colors.text + ";");
         block.innerHTML = block.innerHTML.replace(/background-color:[^;]*;/g, "background-color: transparent;");
+        block.innerHTML = block.innerHTML.replace(/background:[^;]*;/g, "background: transparent;");
     }
 
     // Accountinstellingen - background

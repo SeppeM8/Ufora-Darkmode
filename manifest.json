@@ -1,6 +1,6 @@
 {
     "name": "Ufora Dark Mode",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "__MSG_appDesc__",
     "default_locale": "en",
     "manifest_version": 2,

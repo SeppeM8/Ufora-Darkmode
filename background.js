@@ -23,7 +23,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
                                             "accent2":"#00ccff",
                                             "background":"#000000",
                                             "link":"#00bbff",
-                                            "linkvisited":"#0095ff",
+                                            "linkvisited":"#1279d3",
                                             "selected":"#353535",
                                             "text":"#eeeeee",
                                             "textaccent":"#ffffff",
