@@ -32,6 +32,10 @@
     background-color: var(--widget-background) !important;
 }
 
+.d2l-token-receiver {
+    --initials-background-color: var(--accent) !important; /* Profielfoto */
+}
+
 /* Hover Icons */
 .d2l-imagelink d2l-icon {
     transition: color .3s ease;

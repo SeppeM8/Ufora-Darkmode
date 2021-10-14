@@ -58,6 +58,12 @@
     },
     "popup_darkTestTip": {
         "message": "Maak Tests dark (Experimental)"
+    },
+    "popup_json": {
+        "message": "Kleurcode"
+    },
+    "popup_invalid_json": {
+        "message": "Ongeldige code"
     }
 }
     

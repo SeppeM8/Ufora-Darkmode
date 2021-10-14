@@ -58,6 +58,12 @@
     },
     "popup_darkTestTip": {
         "message": "Make Tests dark (Experimental)"
+    },
+    "popup_json": {
+        "message": "Colorcode"
+    },
+    "popup_invalid_json": {
+        "message": "Invalid code"
     }
 }
     

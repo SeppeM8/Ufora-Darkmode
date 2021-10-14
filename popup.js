@@ -21,6 +21,26 @@ function localizeHtmlPage()
 
 localizeHtmlPage();
 
+function checkJson(cjson) {
+    try {
+        cjson = JSON.parse(cjson);
+    } catch (error) {
+        return false;
+    }
+
+
+    const keys = ["accent", "accent2", "background", "link", "linkvisited", "selected", "text", "textaccent", "title", "widgetbackground"];
+    for (let key of keys) {
+        if (!cjson[key]) {
+            return false;
+        }
+        if (! /^#[0-9a-f]{6}$/.test(cjson[key])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 var enable = document.getElementById("enable");
 var enabled;
 
@@ -137,7 +157,19 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 // init
-function initColors() {
+function initColors(colors) {
+    if (colors) {
+        cbackground.value = colors.background;
+        cwidgetbackground.value = colors.widgetbackground;
+        cselected.value = colors.selected;
+        caccent.value = colors.accent;
+        caccent2.value = colors.accent2;
+        ctextaccent.value = colors.textaccent;
+        ctext.value = colors.text;
+        ctitle.value = colors.title;
+        clink.value = colors.link;
+        clinkvisited.value = colors.linkvisited;
+    }
     chrome.storage.sync.get("colors", function(result) {
         cbackground.value = result.colors.background;
         cwidgetbackground.value = result.colors.widgetbackground;
@@ -149,6 +181,7 @@ function initColors() {
         ctitle.value = result.colors.title;
         clink.value = result.colors.link;
         clinkvisited.value = result.colors.linkvisited;
+        cjson.value = JSON.stringify(result.colors);
     });
 }
 initColors();
@@ -158,66 +191,88 @@ initColors();
 cbackground.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.background = cbackground.value;
-        chrome.storage.sync.set({"colors": result.colors});
+        chrome.storage.sync.set({"colors": result.colors});        
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 cwidgetbackground.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.widgetbackground = cwidgetbackground.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 cselected.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.selected = cselected.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 caccent.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.accent = caccent.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 caccent2.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.accent2 = caccent2.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 cwidgetbackground.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.widgetbackground = cwidgetbackground.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 ctextaccent.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.textaccent = ctextaccent.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 ctext.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.text = ctext.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 ctitle.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.title = ctitle.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 clink.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.link = clink.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
 });
 clinkvisited.addEventListener("change", function() {
     chrome.storage.sync.get("colors", function(result) {
         result.colors.linkvisited = clinkvisited.value;
         chrome.storage.sync.set({"colors": result.colors});
+        cjson.value = JSON.stringify(result.colors);
     });
+});
+cjson.addEventListener("change", function() {
+    if (checkJson(cjson.value)) {
+        chrome.storage.sync.set({"colors": JSON.parse(cjson.value)});
+        initColors(JSON.parse(cjson.value));
+    } else {
+        alert(chrome.i18n.getMessage("popup_invalid_json"));        
+        chrome.storage.sync.get("colors", function(result) {
+            cjson.value = JSON.stringify(result.colors);
+        });
+    }
 });
