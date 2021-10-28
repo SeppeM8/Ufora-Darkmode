@@ -31,7 +31,8 @@ chrome.runtime.onInstalled.addListener(function(details) {
                                             "widgetbackground":"#202020"},
                                 "settings":{"removeWhite":true,
                                             "state":true,
-                                            "darkTest":false},
+                                            "darkTest":false,
+                                            "logo": "white"},
                                 "sites":   {"login":true}
                             }, function(data) {
         chrome.storage.sync.set(data, function() {

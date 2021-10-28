@@ -64,6 +64,20 @@
     },
     "popup_invalid_json": {
         "message": "Invalid code"
+    },
+    "popup_jsonTip": {
+        "message": "Can be used to save/share settings"
+    },
+    "popup_logo": {
+        "message": "Logo color"
+    },
+    "popup_logoOringinal": {
+        "message": "Original"
+    },
+    "popup_logoWhite": {
+        "message": "White"
+    },
+    "popup_logoBlack": {
+        "message": "Black"
     }
 }
-    

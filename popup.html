@@ -107,6 +107,14 @@
         border-color: #555 transparent transparent transparent;
       }
 
+      .tooltipJ .tooltiptextJ {
+        left: -50px;
+      }
+
+      .tooltipJ .tooltiptextJ::after {        
+        left: 75px;
+      }
+
       /* Show the tooltip text when you mouse over the tooltip container */
       .tooltip:hover .tooltiptext {
         visibility: visible;
@@ -171,12 +179,30 @@
       </tr>   
       <tr>
         <td><input id="cjson" type="text" style="width:42px"/></td>
-        <td>__MSG_popup_json__</td>
+        <td>
+          <div class="tooltip tooltipJ">
+            <label class="switch">
+              <span>__MSG_popup_json__</span>
+            </label>
+            <span class="tooltiptext tooltiptextJ">__MSG_popup_jsonTip__</span>
+          </div>
+        </td>
       </tr>  
       <tr style="height:4px;"></tr>
       <tr style="border-top:1px solid white; height:5px;">
         <td colspan="100%"></td>
+      </tr>      
+      <tr>
+        <td>
+          <select id="logo" name="color"  style="width:49px; color:black;">
+            <option value="original">__MSG_popup_logoOringinal__</option>
+            <option value="white">__MSG_popup_logoWhite__</option>
+            <option value="black">__MSG_popup_logoBlack__</option>
+          </select>
+        </td>
+        <td>__MSG_popup_logo__</td>
       </tr>
+      <tr style="height:4px;"></tr>
       <tr>
         <td>
           <div class="tooltip">

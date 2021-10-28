@@ -90,6 +90,21 @@ if (reset) {
     });
 }
 
+var logo = document.getElementById("logo");
+
+if (logo) {
+    chrome.storage.sync.get("settings", function(result){
+        logo.value = result.settings.logo
+    })
+
+    logo.addEventListener("change", function(e) {
+        chrome.storage.sync.get("settings", function(result) {
+            result.settings.logo=logo.value;
+            chrome.storage.sync.set({"settings": result.settings});
+        })
+    })
+}
+
 var login = document.getElementById("login");
 
 if (login) {

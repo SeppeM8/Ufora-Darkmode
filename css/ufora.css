@@ -449,6 +449,11 @@ path {
     background-color: var(--widget-background) !important;
 }
 
+/* Tooltip, vb: voorwaardelijk vrijgegeven */
+d2l-tooltip {
+    color: var(--text-accent);
+}
+
 /* inhoud doelen */
 .daylight .d2l-msg-container .d2l-msg-container-inner {
     color: var(--text) !important;

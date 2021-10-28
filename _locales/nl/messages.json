@@ -64,6 +64,21 @@
     },
     "popup_invalid_json": {
         "message": "Ongeldige code"
+    },
+    "popup_jsonTip": {
+        "message": "Kan gebruikt worden om instellingen op te slaan en te delen."
+    },
+    "popup_logo": {
+        "message": "Kleur logo"
+    },
+    "popup_logoOringinal": {
+        "message": "Origineel"
+    },
+    "popup_logoWhite": {
+        "message": "Wit"
+    },
+    "popup_logoBlack": {
+        "message": "Zwart"
     }
 }
     

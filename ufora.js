@@ -41,11 +41,12 @@ chrome.storage.sync.get(["colors", "settings"], function(result) {
     for (var i = 0; i < boxes.length; i++) {
         boxes[i].children[0].style.backgroundColor = result.colors.widgetbackground;
     }
-
+    
 
     let observer = new MutationObserver(() => {
         setTimeout(onReady, 0);
     });
+
 
     /* Dingen die pas uitgevoerd worden wanneer pagina volledig geladen is */
     function onReady() {
@@ -70,7 +71,13 @@ chrome.storage.sync.get(["colors", "settings"], function(result) {
                 childList: true, // observe direct children
                 subtree: true, // and lower descendants too
             });
-        }        
+        }
+
+        var logo = document.getElementsByTagName('d2l-navigation-link-image');
+        const filters = {"original": "", "black": "brightness(0)", "white": "brightness(0) invert(1)"};
+        if (logo) {
+            logo[0].style.filter = filters[result.settings.logo];
+        }
     }
 
     document.onreadystatechange = () => {
