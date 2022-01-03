@@ -108,7 +108,7 @@
       }
 
       .tooltipJ .tooltiptextJ {
-        left: -50px;
+        left: -45px;
       }
 
       .tooltipJ .tooltiptextJ::after {        
@@ -124,7 +124,7 @@
     </style>
   </head>
   <body>
-    <table style="border-collapse: collapse;">    
+    <table style="border-collapse: collapse; width:160px;">    
       <tr style="height: 18px;">
         <td><button id="reset" type="button">__MSG_popup_reset__</button></td>
         <td><button id="enable" type="button" style= "width: 95px">Error</button></td>
@@ -132,10 +132,25 @@
       <tr style="height:4px;"></tr>
       <tr style="border-top:1px solid white; height:5px;">
         <td colspan="100%"></td>
-      </tr>
+      </tr>      
+    </table> 
+    <div style="width: 160px;">
+      <div style="width: fit-content; margin: 0 auto;">
+        <button id="presetPrev" type="button"><</button>
+          <div class="tooltip tooltipJ"; style="width: 60px">
+            <label class="switch">
+              <span id="presetText" style="display: inline-block; width: 60px; text-align: center;">Error</span>
+            </label>
+            <span class="tooltiptext tooltiptextJ">__MSG_popup_presetTip__</span>
+          </div>
+        <button id="presetNext" type="button">></button>
+      </div>
+    </div>
+    <table style="border-collapse: collapse;  width:160px;"> 
+    <tr style="height:4px;"></tr>    
       <tr>
         <td><input id="cbackground" type="color" /></td>
-        <td style="min-width: 80px">__MSG_popup_background1__</td>
+        <td>__MSG_popup_background1__</td>
       </tr>
       <tr>
         <td><input id="cwidgetbackground" type="color" /></td>
@@ -176,7 +191,7 @@
       <tr style="height:4px;"></tr>
       <tr style="border-top:1px solid white; height:5px;">
         <td colspan="100%"></td>
-      </tr>   
+      </tr> 
       <tr>
         <td><input id="cjson" type="text" style="width:42px"/></td>
         <td>

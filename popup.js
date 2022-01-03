@@ -76,19 +76,53 @@ var reset = document.getElementById("reset");
 
 if (reset) {
     reset.addEventListener("click", function () {
-        chrome.storage.sync.set({"colors": {"background": "#000000",
-                                            "widgetbackground": "#202020",
-                                            "selected": "#353535",
-                                            "accent": "#0077ff",
-                                            "accent2": "#00ccff",
-                                            "textaccent": "#ffffff",
-                                            "text": "#eeeeee",
-                                            "title": "#0084ff",
-                                            "link": "#00bbff",
-                                            "linkvisited": "#1279d3"}});
-        initColors();
+        const presets = {
+            "colors":{"accent":"#0077ff","accent2":"#00ccff","background":"#000000","link":"#00bbff","linkvisited":"#1279d3","selected":"#353535","text":"#eeeeee","textaccent":"#ffffff","title":"#0084ff","widgetbackground":"#202020"},
+            "colors1":{"accent":"#37ff00","accent2":"#2f9e00","background":"#000000","link":"#44ff00","linkvisited":"#17bb02","selected":"#353535","text":"#eeeeee","textaccent":"#000000","title":"#44ff00","widgetbackground":"#202020"},
+            "colors2":{"accent":"#ffa726","accent2":"#c77800","background":"#000000","link":"#ffd95d","linkvisited":"#c77800","selected":"#353535","text":"#eeeeee","textaccent":"#ffffff","title":"#ffa726","widgetbackground":"#333333"},
+            "colors3":{"accent":"#ff0000","accent2":"#ffae00","background":"#000000","link":"#ff6600","linkvisited":"#b92804","selected":"#353535","text":"#eeeeee","textaccent":"#ffffff","title":"#ff0000","widgetbackground":"#202020"},
+            "colors4":{"accent":"#ff00dd","accent2":"#ff0088","background":"#000000","link":"#fb00ff","linkvisited":"#b60295","selected":"#353535","text":"#eeeeee","textaccent":"#ffffff","title":"#ff00dd","widgetbackground":"#202020"}
+        };
+        chrome.storage.sync.get("presetNum", function(result){
+            var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+            chrome.storage.sync.set({[preset]: presets[preset]});
+        });
     });
 }
+
+var presetText = document.getElementById("presetText");
+
+if (presetText) {
+    chrome.storage.sync.get("presetNum", function(result){
+        presetText.textContent = chrome.i18n.getMessage("popup_preset") + " " + (result.presetNum + 1);
+    });
+}
+
+var prev = document.getElementById("presetPrev");
+
+if (prev) {
+    prev.addEventListener("click", function(e) {
+        chrome.storage.sync.get("presetNum", function(result) {
+            var preset = (result.presetNum + 4) % 5;        
+            chrome.storage.sync.set({"presetNum": preset});
+            presetText.textContent = chrome.i18n.getMessage("popup_preset") + " " + (preset + 1);
+        });
+    });
+
+}
+
+var next = document.getElementById("presetNext");
+
+if (next) {
+    next.addEventListener("click", function(e) {
+        chrome.storage.sync.get("presetNum", function(result) {
+            var preset = (result.presetNum + 1) % 5;        
+            chrome.storage.sync.set({"presetNum": preset});
+            presetText.textContent = chrome.i18n.getMessage("popup_preset") + " " + (preset + 1);
+        });
+    });
+}
+
 
 var logo = document.getElementById("logo");
 
@@ -169,125 +203,156 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
             document.body.style.color = "black";
         }
     });
+    initColors();
 });
 
+
+
 // init
-function initColors(colors) {
-    if (colors) {
-        cbackground.value = colors.background;
-        cwidgetbackground.value = colors.widgetbackground;
-        cselected.value = colors.selected;
-        caccent.value = colors.accent;
-        caccent2.value = colors.accent2;
-        ctextaccent.value = colors.textaccent;
-        ctext.value = colors.text;
-        ctitle.value = colors.title;
-        clink.value = colors.link;
-        clinkvisited.value = colors.linkvisited;
-    }
-    chrome.storage.sync.get("colors", function(result) {
-        cbackground.value = result.colors.background;
-        cwidgetbackground.value = result.colors.widgetbackground;
-        cselected.value = result.colors.selected;
-        caccent.value = result.colors.accent;
-        caccent2.value = result.colors.accent2;
-        ctextaccent.value = result.colors.textaccent;
-        ctext.value = result.colors.text;
-        ctitle.value = result.colors.title;
-        clink.value = result.colors.link;
-        clinkvisited.value = result.colors.linkvisited;
-        cjson.value = JSON.stringify(result.colors);
+function initColors() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            var colors = result[preset];
+            cbackground.value = colors.background;
+            cwidgetbackground.value = colors.widgetbackground;
+            cselected.value = colors.selected;
+            caccent.value = colors.accent;
+            caccent2.value = colors.accent2;
+            ctextaccent.value = colors.textaccent;
+            ctext.value = colors.text;
+            ctitle.value = colors.title;
+            clink.value = colors.link;
+            clinkvisited.value = colors.linkvisited;
+            cjson.value = JSON.stringify(colors);
+        });
     });
 }
+
 initColors();
 
 
 // Listeners
 cbackground.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.background = cbackground.value;
-        chrome.storage.sync.set({"colors": result.colors});        
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-cwidgetbackground.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.widgetbackground = cwidgetbackground.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-cselected.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.selected = cselected.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-caccent.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.accent = caccent.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-caccent2.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.accent2 = caccent2.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-cwidgetbackground.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.widgetbackground = cwidgetbackground.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-ctextaccent.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.textaccent = ctextaccent.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-ctext.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.text = ctext.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-ctitle.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.title = ctitle.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-clink.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.link = clink.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-clinkvisited.addEventListener("change", function() {
-    chrome.storage.sync.get("colors", function(result) {
-        result.colors.linkvisited = clinkvisited.value;
-        chrome.storage.sync.set({"colors": result.colors});
-        cjson.value = JSON.stringify(result.colors);
-    });
-});
-cjson.addEventListener("change", function() {
-    if (checkJson(cjson.value)) {
-        chrome.storage.sync.set({"colors": JSON.parse(cjson.value)});
-        initColors(JSON.parse(cjson.value));
-    } else {
-        alert(chrome.i18n.getMessage("popup_invalid_json"));        
-        chrome.storage.sync.get("colors", function(result) {
-            cjson.value = JSON.stringify(result.colors);
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].background = cbackground.value;
+            chrome.storage.sync.set({[preset]: result[preset]});
+            cjson.value = JSON.stringify(result[preset]);
         });
-    }
+    });
+});
+
+cwidgetbackground.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].widgetbackground = cwidgetbackground.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+cselected.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].selected = cselected.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+caccent.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].accent = caccent.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+caccent2.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].accent2 = caccent2.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+ctextaccent.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].textaccent = ctextaccent.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+ctext.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].text = ctext.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+ctitle.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].title = ctitle.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+clink.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].link = clink.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+clinkvisited.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        chrome.storage.sync.get(preset, function(result) {
+            result[preset].linkvisited = clinkvisited.value;
+            chrome.storage.sync.set({[preset]: result[preset]});        
+            cjson.value = JSON.stringify(result[preset]);
+        });
+    });
+});
+
+cjson.addEventListener("change", function() {
+    chrome.storage.sync.get("presetNum", function(result) {
+        var preset = result.presetNum == 0 ? "colors" : "colors" + result.presetNum;
+        if (checkJson(cjson.value)) {
+            chrome.storage.sync.set({[preset]: JSON.parse(cjson.value)});
+        } else {
+            alert(chrome.i18n.getMessage("popup_invalid_json"));        
+            chrome.storage.sync.get(preset, function(result) {
+                cjson.value = JSON.stringify(result.colors);
+            });
+        }
+    });
 });

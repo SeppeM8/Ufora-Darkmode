@@ -79,5 +79,11 @@
     },
     "popup_logoBlack": {
         "message": "Black"
+    },
+    "popup_preset": {
+        "message": "Colorslot"
+    },
+    "popup_presetTip": {
+        "message": "Each slot can be modified independently"
     }
 }

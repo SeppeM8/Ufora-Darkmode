@@ -79,6 +79,12 @@
     },
     "popup_logoBlack": {
         "message": "Zwart"
+    },
+    "popup_preset": {
+        "message": "Kleurslot"
+    },
+    "popup_presetTip": {
+        "message": "Elk slot kan individueel ingesteld worden"
     }
 }
     
