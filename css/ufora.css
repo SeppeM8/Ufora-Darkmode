@@ -58,6 +58,10 @@ body {
     background-color: var(--background) !important;
 }
 
+.d2l-navigation-button-icon {
+    color: red !important;
+}
+
 /* Tiles */
 .d2l-tile {
     background-color: var(--widget-background) !important;

@@ -128,7 +128,11 @@ function addCSS(tab, cssFile) {
         if ((! result.settings.darkTest) &&  tab.url.includes("ufora.ugent.be/d2l/lms/quizzing/user/attempt")) {
             return;
         } else {
-            chrome.tabs.insertCSS(tab.id, { file: "css/" + cssFile}, function(){chrome.runtime.lastError;});
+            chrome.scripting.insertCSS(
+                {
+                    target: {tabId: tab.id}, 
+                    files: ["css/" + cssFile]
+                }, function(){chrome.runtime.lastError;});
             cssScript(tab);
             dark[tab.id] = cssFile;
         }
@@ -137,7 +141,11 @@ function addCSS(tab, cssFile) {
 
 // Verwijder gegeven css file van gegeven tab
 function deleteCSS(tab, cssFile) {
-    chrome.tabs.removeCSS(tab.id, { file: "css/" + cssFile},  function(){chrome.runtime.lastError;});
+    chrome.scripting.removeCSS(
+        {
+            target: {tabId: tab.id}, 
+            files: ["css/" + cssFile]
+        },  function(){chrome.runtime.lastError;});
     delete dark[tab.id];
 }
 
@@ -147,25 +155,29 @@ function cssScript(tab) {
         chrome.storage.sync.get(preset, function(result) {
             var colors = result[preset];
             if (tab.url.includes("ufora.ugent.be")) {
-                chrome.tabs.executeScript(tab.id, {
-                    file : "ufora.js"
+                chrome.scripting.executeScript(
+                    {
+                        target: {tabId: tab.id},
+                        files: ["ufora.js"]
                 }, function(){chrome.runtime.lastError;});
             }
     
-            var command = "var r = document.querySelector(':root'); "; 
-            command += "r.style.setProperty('--background','" + colors.background + "');";
-            command += "r.style.setProperty('--widget-background','" + colors.widgetbackground + "');";
-            command += "r.style.setProperty('--selected','" + colors.selected + "');";
-            command += "r.style.setProperty('--accent','" + colors.accent + "');";
-            command += "r.style.setProperty('--accent2','" + colors.accent2 + "');";
-            command += "r.style.setProperty('--text-accent','" + colors.textaccent + "');";
-            command += "r.style.setProperty('--text','" + colors.text + "');";
-            command += "r.style.setProperty('--text-title','" + colors.title + "');";
-            command += "r.style.setProperty('--text-link','" + colors.link + "');";
-            command += "r.style.setProperty('--text-link-visited','" + colors.linkvisited + "');";
-            chrome.tabs.executeScript(tab.id, {
-                code: command
-            }, function(){chrome.runtime.lastError;});
+            var command = ":root {"; 
+            command += "--background:" + colors.background + ";";
+            command += "--widget-background:" + colors.widgetbackground + ";";
+            command += "--selected:" + colors.selected + ";";
+            command += "--accent:" + colors.accent + ";";
+            command += "--accent2:" + colors.accent2 + ";";
+            command += "--text-accent:" + colors.textaccent + ";";
+            command += "--text:" + colors.text + ";";
+            command += "--text-title:" + colors.title + ";";
+            command += "--text-link:" + colors.link + ";";
+            command += "--text-link-visited:" + colors.linkvisited + ";";
+            chrome.scripting.insertCSS(
+                {
+                    target: {tabId: tab.id},
+                    css: command
+                }, function(){chrome.runtime.lastError;});
         }); 
     });    
 }
